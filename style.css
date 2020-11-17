@@ -25,6 +25,17 @@ header {
   border-bottom: 7px solid #eee;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='number'] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
 main {
   height: 65vh;
   color: #eee;
@@ -116,4 +127,8 @@ h1 {
 
 .label-score {
   margin-bottom: 2rem;
+}
+
+input {
+  outline: none;
 }
