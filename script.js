@@ -3,6 +3,9 @@ let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let hightscore = 0;
 let score = 20;
 
+const displayMessage = message => {
+  document.querySelector('.message').textContent = message;
+};
 const scoreUpdate = score => {
   document.querySelector('.score').textContent = score;
 };
@@ -11,7 +14,7 @@ document.querySelector('.again').addEventListener('click', () => {
   score = 20;
   secretNumber = Math.trunc(Math.random() * 20) + 1;
 
-  document.querySelector('.message').textContent = 'Start guessing...';
+  displayMessage('Start guessing...');
   document.querySelector('.score').textContent = score;
 
   document.querySelector('body').style.backgroundColor = '#222';
@@ -24,34 +27,25 @@ document.querySelector('.check').addEventListener('click', () => {
   const guess = Number(document.querySelector('.guess').value);
 
   if (!guess) {
-    document.querySelector('.message').textContent = '🤦‍♂️ Enter the number!';
+    displayMessage('🤦‍♂️ Enter the number!');
   } else if (guess === secretNumber) {
-    document.querySelector('.message').textContent = '🎉 Correct Number!';
+    displayMessage('🎉 Correct Number!');
     document.querySelector('.number').textContent = secretNumber;
     document.querySelector('body').style.backgroundColor = '#60b347';
-
+    document.querySelector('.number').style.width = '30rem';
     if (score > hightscore) {
       hightscore = score;
       document.querySelector('.highscore').textContent = hightscore;
     }
 
-    document.querySelector('.number').style.width = '30rem';
-  } else if (guess > secretNumber) {
+    // When guess is wrong
+  } else if (guess !== secretNumber) {
     if (score > 1) {
-      document.querySelector('.message').textContent = '📈 Too high!';
+      displayMessage(guess > secretNumber ? '📈 Too high!' : '📈 Too Low!');
       score--;
       scoreUpdate(score);
     } else {
-      document.querySelector('.message').textContent = '💥 You lost!';
-      scoreUpdate(0);
-    }
-  } else if (guess < secretNumber) {
-    if (score > 1) {
-      document.querySelector('.message').textContent = '📈 Too Low!';
-      score--;
-      scoreUpdate(score);
-    } else {
-      document.querySelector('.message').textContent = '💥 You lost!';
+      displayMessage('💥 You lost!');
       scoreUpdate(0);
     }
   }
