@@ -1,6 +1,6 @@
 'use strict';
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
-
+let hightscore = 0;
 let score = 20;
 
 const scoreUpdate = score => {
@@ -29,6 +29,11 @@ document.querySelector('.check').addEventListener('click', () => {
     document.querySelector('.message').textContent = '🎉 Correct Number!';
     document.querySelector('.number').textContent = secretNumber;
     document.querySelector('body').style.backgroundColor = '#60b347';
+
+    if (score > hightscore) {
+      hightscore = score;
+      document.querySelector('.highscore').textContent = hightscore;
+    }
 
     document.querySelector('.number').style.width = '30rem';
   } else if (guess > secretNumber) {
